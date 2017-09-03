@@ -88,9 +88,8 @@ class BotController extends Controller
     public function sendStage($chatId)
     {
         $id = $this->findActiveStage();
-        if ($id < 10) {
+        if ($id <= 5) {
             $stage = Stage::find($id);
-            $this->log($stage->title);
             $messages = str_split($stage->passage, 4096);
             collect($messages)->map(function ($message) use ($chatId) {
                 $response = Telegram::sendMessage([
@@ -99,7 +98,7 @@ class BotController extends Controller
                 ]);
             });
         } else {
-            $this->log('خطبه ایی یافته نشد');
+            $this->log('مسابقه غدیر از تاریخ ۱۳ شهریور۹۶ لغایت ۱۷ شهریور۹۶ برگزار می گردد.');
         }
     }
 
@@ -107,7 +106,7 @@ class BotController extends Controller
     {
 
         $id = $this->findActiveStage();
-        if ($id < 10) {
+        if ($id <=5) {
             $stage = Stage::find($id);
             $stage->questions->map(function ($question) use ($chatId) {
                 $inlineLayout = [
@@ -136,7 +135,7 @@ class BotController extends Controller
 
             });
         } else {
-            $this->log('خطبه ایی یافته نشد');
+            $this->log('مسابقه غدیر از تاریخ ۱۳ شهریور۹۶ لغایت ۱۷ شهریور۹۶ برگزار می گردد.');
         }
     }
 
@@ -195,7 +194,7 @@ class BotController extends Controller
     public function findActiveStage()
     {
         $carbon = new Carbon();
-
+return 6;
         return $carbon->addDay(1)->dayOfWeek;
     }
 }
