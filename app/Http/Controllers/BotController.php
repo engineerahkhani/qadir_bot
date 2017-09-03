@@ -15,6 +15,14 @@ use Intervention\Image\ImageManagerStatic as Image;
 
 class BotController extends Controller
 {
+
+    public function index()
+    {
+        $users = User::all()->count();
+
+        return view('index', compact('users'));
+    }
+
     public function me()
     {
         $response = Telegram::getMe();
@@ -35,8 +43,18 @@ class BotController extends Controller
             $this->getUserAnswer($chatId, $callback_query_id, $data, $user);
         } else {
             $update = Telegram::getWebhookUpdates();
-            $chatId = $update->getMessage()->getChat()->getId();
-            $text = $update->getMessage()->getText();
+            Log::info($update);
+            if (collect($update->getMessage())->has('photo')) {
+                $text = 'photo15427';
+                $chatId = $update['message']['chat']['id'];
+                $fileId = collect($update->getMessage())->get('photo')->last()['file_id'];
+            } elseif (collect($update->getMessage())->has('document')) {
+                $text = 'file';
+                $chatId = $update['message']['chat']['id'];
+            } else {
+                $chatId = $update->getMessage()->getChat()->getId();
+                $text = $update->getMessage()->getText();
+            }
             User::firstOrCreate(['chat_id' => $chatId]);
             switch ($text) {
                 case '/start':
@@ -48,12 +66,25 @@ class BotController extends Controller
                 case 'سوالات':
                     $this->sendQuestions($chatId);
                     break;
+                case 'ارسال عکس':
+                    $info = "عکس مورد نظر را انتخاب کنید. (دقت کنید Send as Photo ارسال شود)";
+                    $this->showMenu($chatId, $info);
+                    break;
                 case 'نتایج':
-                    $info = "بعد از عید سعید غدیر خم اعلام خواهد شد";
+                    $info = "بعد از ساعت ۲۴ هر روز اعلام خواهد شد.";
                     $this->showMenu($chatId, $info);
                     break;
                 case 'درباره ما':
-                    $info = 'درباره ما...';
+                    $info = 'خطبه غدیر محکم ترین سند بر ولایت امیرالمومنین و فرزندان معصوم ایشان علیهم السلام است. دقت در در این در این خطبه حدود 200 فضیلت برای حضرت علی بیان شده است و مفاهیم آن بصورت فردی، باعث محکم تر شدن اعتقاد ما در امامت و ولایت این بزرگواران می‌شود. نشر و فرهنگ سازی خطبه، منجر به کاهش غربت امیرالمؤمنین علیه السلام در بین مردم می‌گردد.
+ین کار، در حقیقت امتثال امر پیامبر صلی الله علیه و آله و سلم است که فرمودند:"فَلْيُبَلِّغِ‏ الْحَاضِرُ الْغَائِبَ وَ الْوَالِدُ الْوَلَدَ إِلَى يَوْمِ الْقِيَامَةِ" ، "پس حاضرین به غائبین و پدران به فرزندان تا روز قیامت این خبر را برسانند..."
+امیدواریم با توجه به تاکید علما و مراجع بزرگوار بتوانیم نقشی هرچند کوچک در فرهنگ سازی خطبه غدیر داشته باشیم  @mosabegheghadir';
+                    $this->showMenu($chatId, $info);
+                    break;
+                case 'photo15427':
+                    $this->uploadImg($chatId, $fileId);
+                    break;
+                case 'file':
+                    $info = 'فایل ارسال شده است. باید عکس ارسال کنید(دقت کنید Send as Photo ارسال شود)';
                     $this->showMenu($chatId, $info);
                     break;
                 default:
@@ -70,6 +101,7 @@ class BotController extends Controller
         $keyboard = [
             ['سوالات', 'متن خطبه'],
             ['درباره ما', 'نتایج'],
+            [ 'ارسال عکس'],
         ];
 
         $reply_markup = Telegram::replyKeyboardMarkup([
@@ -104,9 +136,8 @@ class BotController extends Controller
 
     public function sendQuestions($chatId)
     {
-
         $id = $this->findActiveStage();
-        if ($id <=5) {
+        if ($id <= 5) {
             $stage = Stage::find($id);
             $stage->questions->map(function ($question) use ($chatId) {
                 $inlineLayout = [
@@ -182,19 +213,23 @@ class BotController extends Controller
     public function uploadImg($chatId, $fileId)
     {
         $response = Telegram::getFile(['file_id' => $fileId]);
-
-        $img = Image::make('https://appakdl.com/qadir/1.jpg');
+        $img = Image::make('https://appakdl.com/qadir/1.png');
         $imgSource = Image::make('https://api.telegram.org/file/bot' . env('TELEGRAM_BOT_TOKEN') . '/' . $response['file_path']);
-        $imgSource->resize(320, 300);
-        $img->insert($imgSource, 'top-right', 170, 300);
-        $img->save('bar.jpg');
+        $imgSource->resize(500, 500);
+        $img->insert($imgSource, 'top-left', 150, 150);
+        $img->save('bar.png');
+        $response = Telegram::sendPhoto([
+            'chat_id' => $chatId,
+            'photo' => 'https://appakdl.com/qadir/bar.png',
+            'caption' => 'لطفا با کپشن مسابقه در اکانت اینستاگرام خود منتشر نمایید.'
+        ]);
 
     }
 
     public function findActiveStage()
     {
         $carbon = new Carbon();
-return 6;
-        return $carbon->addDay(1)->dayOfWeek;
+        return 1;
+        return $carbon->dayOfWeek;
     }
 }

@@ -121,7 +121,7 @@ class DatabaseSeeder extends Seeder
             'option_a' => ' حمد و ثنای الهی_اعلان رسمی ولایت',
             'option_b' => ' حمد و ثنای الهی_فرمان الهی برای مطلبی مهم',
             'option_c' => ' حمد و ثنای الهی_ تاکید بر توجه امت به مسئله امامت',
-            'correct'=>'c',
+            'correct'=>'b',
             'stage_id'=> 1
         ]);
         DB::table('questions')->insert([
@@ -129,7 +129,7 @@ class DatabaseSeeder extends Seeder
             'option_a' => 'اگر خوداری نمایم از ابلاغ آنچه به من وحی شده، پس تبلیغ رسالت نکرده ام.',
             'option_b' => 'اگر خودداری نمایم از ابلاغ آنچه به من وحی شده، می ترسم به بلایی مبتلا شوم که احدی نتواند از من دفع نماید، هر چند تدبیر او زیاد باشد چرا که نیست الهی جز الله.',
             'option_c' => ' اگر خودداری نمایماز ابلاغ آنچه به من وحی شده، پس هیچکس از عذاب او ایمن نتواند بود.',
-            'correct'=>'c',
+            'correct'=>'b',
             'stage_id'=> 1
         ]);
         DB::table('questions')->insert([
@@ -137,7 +137,7 @@ class DatabaseSeeder extends Seeder
             'option_a' => 'اگر آنچه درباره علی علیه السلام نازل شده به مردم نرساند.',
             'option_b' => 'اگر فرمان الهی را به مردم نرساند. ',
             'option_c' => ' اگر آیات نازل شده را به مردم نرساند.',
-            'correct'=>'c',
+            'correct'=>'a',
             'stage_id'=> 1
         ]);
         DB::table('questions')->insert([
@@ -145,7 +145,7 @@ class DatabaseSeeder extends Seeder
             'option_a' => ' پیامبر صلوات الله علیه و آله.',
             'option_b' => 'علی علیه السلام ',
             'option_c' => ' کسانی که ایمان آورده اند.',
-            'correct'=>'c',
+            'correct'=>'b',
             'stage_id'=> 1
         ]);
         DB::table('questions')->insert([
@@ -153,7 +153,7 @@ class DatabaseSeeder extends Seeder
             'option_a' => '  به دلیل دشواری مأموریت .',
             'option_b' => ' کمی پرهیزگاران وفزونی منافقان و دسیسی ملامت گران و مکر مسخره کنندگان اسلام  ',
             'option_c' => ' به دلیل طاقت کم مردم.',
-            'correct'=>'c',
+            'correct'=>'b',
             'stage_id'=> 1
         ]);
 
@@ -265,7 +265,7 @@ class DatabaseSeeder extends Seeder
             'option_a' => 'حضرت علی علیه السلام ',
             'option_b' => 'حضرت رسول صلوات الله علیه و آله',
             'option_c' => 'امام زمان عجل الله تعالی فرجه الشریف ',
-            'correct'=>'c',
+            'correct'=>'a',
             'stage_id'=> 2
         ]);
         DB::table('questions')->insert([
@@ -273,7 +273,7 @@ class DatabaseSeeder extends Seeder
             'option_a' => 'ثقل اصغر',
             'option_b' => 'ثقل اکبر',
             'option_c' => 'حوض کوثر',
-            'correct'=>'c',
+            'correct'=>'a',
             'stage_id'=> 2
         ]);
         DB::table('questions')->insert([
@@ -281,7 +281,7 @@ class DatabaseSeeder extends Seeder
             'option_a' => 'امام المتقین',
             'option_b' => 'امیرالمومنین ',
             'option_c' => ' جنب الله',
-            'correct'=>'c',
+            'correct'=>'b',
             'stage_id'=> 2
         ]);
         DB::table('questions')->insert([
@@ -297,7 +297,7 @@ class DatabaseSeeder extends Seeder
             'option_a' => ' جنب الله',
             'option_b' => '  وجه الله  ',
             'option_c' => ' ید الله',
-            'correct'=>'c',
+            'correct'=>'a',
             'stage_id'=> 2
         ]);
 
@@ -419,7 +419,7 @@ class DatabaseSeeder extends Seeder
             'option_a' => '  اصحاب سبته',
             'option_b' => '  اصحاب صحیفه  ',
             'option_c' => 'ائمه کفر',
-            'correct'=>'c',
+            'correct'=>'a',
             'stage_id'=> 3
         ]);
 
@@ -507,7 +507,7 @@ class DatabaseSeeder extends Seeder
             'option_a' => 'حمد  ',
             'option_b' => 'عصر ',
             'option_c' => 'یاسین  ',
-            'correct'=>'c',
+            'correct'=>'a',
             'stage_id'=>4
         ]);
         DB::table('questions')->insert([
@@ -515,7 +515,7 @@ class DatabaseSeeder extends Seeder
             'option_a' => 'کدام آیه در وصف دوستان اوصیای حضرت رسول صلوات الله علیه و آله نیست؟',
             'option_b' => 'یوحی بَعْضَّهُمْ إِلی بَعْضٍ زُخْرُفَ الْقَوْلِ غُروراً',
             'option_c' => 'الَّذینَ آمَنُوا وَلَمْ یَلْبِسُوا إیمانَُهُمْ بِظُلْمٍ أُولئِکَ لَُهُمُ الْأَمْنُ وَ هُمْ مُُهْتَدونَ',
-            'correct'=>'c',
+            'correct'=>'b',
             'stage_id'=> 4
         ]);
         DB::table('questions')->insert([
@@ -539,7 +539,7 @@ class DatabaseSeeder extends Seeder
             'option_a' => 'امام زمان عجل الله تعالی فرجه الشریف',
             'option_b' => ' حضرت علی علیه السلام  ',
             'option_c' => 'هر دو',
-            'correct'=>'c',
+            'correct'=>'a',
             'stage_id'=> 4
         ]);
 
@@ -645,7 +645,7 @@ class DatabaseSeeder extends Seeder
             'option_a' => 'نماز  ',
             'option_b' => 'روزه ',
             'option_c' => 'حج  ',
-            'correct'=>'c',
+            'correct'=>'a',
             'stage_id'=>5
         ]);
         DB::table('questions')->insert([
@@ -653,7 +653,7 @@ class DatabaseSeeder extends Seeder
             'option_a' => 'امامت',
             'option_b' => 'ایمانً',
             'option_c' => 'تقواَ',
-            'correct'=>'c',
+            'correct'=>'a',
             'stage_id'=> 5
         ]);
         DB::table('questions')->insert([
@@ -669,7 +669,7 @@ class DatabaseSeeder extends Seeder
             'option_a' => ' امیرالمومنین   ',
             'option_b' => 'امام المبین',
             'option_c' => 'وصی رسول رب العالمین   ',
-            'correct'=>'c',
+            'correct'=>'a',
             'stage_id'=> 5
         ]);
         DB::table('questions')->insert([
