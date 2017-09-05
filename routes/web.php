@@ -1,6 +1,9 @@
 <?php
 
 Route::get('/', 'BotController@index');
+Route::post('/message', 'HomeController@message');
+Route::post('/competition', 'HomeController@competition');
+Route::post('/setactive', 'HomeController@setactive');
 Route::get('/sendMe/{message}', function (\Illuminate\Http\Request $request) {
     $stage = \App\Stage::find($request->message);
     $messages = str_split($stage->passage, 4096);
@@ -34,3 +37,5 @@ Route::post(env('TELEGRAM_BOT_TOKEN').'/webhook', 'BotController@respond');
 Route::get('/us',function (){
     return \App\User::with('answers')->get();
 } );
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');

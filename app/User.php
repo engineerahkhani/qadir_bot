@@ -19,4 +19,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Answer::class);
     }
+
+    public function correctAnswer($question)
+    {
+       $result =  $this->answers(function($answer) use($question){
+           $answer->where('question_id',$question->id)->where('selected',$question->correct)->get();
+       });
+        return count($result);
+    }
 }

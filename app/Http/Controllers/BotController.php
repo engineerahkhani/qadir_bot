@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Setting;
 use Carbon\Carbon;
 use App\Answer;
 use App\Stage;
@@ -62,16 +63,21 @@ class BotController extends Controller
                     break;
                 case 'متن خطبه':
                     $this->sendStage($chatId);
+                    $this->showMenu($chatId,'برای نمایش سوالات از منوی زیر استفاده کنید.');
                     break;
                 case 'سوالات':
                     $this->sendQuestions($chatId);
+                    $this->showMenu($chatId);
                     break;
                 case 'ارسال عکس':
-                    $info = "عکس مورد نظر را انتخاب کنید. (دقت کنید Send as Photo ارسال شود)";
+                    $info = "عکس کودکتان را بصورتی که مشتش را گره کرده و دستش را بالا گرفته است را به ربات ارسال کنید و عکس قاب شده خروجی را با هشتگ #من_غدیریم یا #من_غدیری_ام در صفحه اینستاگرام خود منتشر کنید. توجه کنید که صفحه اینستاگرامتان باید پابلیک باشد.
+به ۳ نفر از بهترین عکسها بر حسب قرعه کشی جایزی ۱ میلیون ریالی اهدا میگردد.";
                     $this->showMenu($chatId, $info);
                     break;
                 case 'نتایج':
-                    $info = "بعد از ساعت ۲۴ هر روز اعلام خواهد شد.";
+                    $info = "
+با تشکر از شرکت در مسابقه بزرگ غدیر برندگان در کانال تلگرام مسابقه اعلام خواهد شد.
+https://t.me/mosabegheghadir";
                     $this->showMenu($chatId, $info);
                     break;
                 case 'درباره ما':
@@ -82,6 +88,7 @@ class BotController extends Controller
                     break;
                 case 'photo15427':
                     $this->uploadImg($chatId, $fileId);
+                    $this->showMenu($chatId);
                     break;
                 case 'file':
                     $info = 'فایل ارسال شده است. باید عکس ارسال کنید(دقت کنید Send as Photo ارسال شود)';
@@ -95,7 +102,7 @@ class BotController extends Controller
 
     }
 
-    public function showMenu($chatId, $info = 'برای شروع از منوی زیز یک گزینه را انتخاب کنید.')
+    public function showMenu($chatId, $info = 'برای شروع از منوی زیر یک گزینه را انتخاب کنید.')
     {
 
         $keyboard = [
@@ -221,15 +228,14 @@ class BotController extends Controller
         $response = Telegram::sendPhoto([
             'chat_id' => $chatId,
             'photo' => 'https://appakdl.com/qadir/bar.png',
-            'caption' => 'لطفا با کپشن مسابقه در اکانت اینستاگرام خود منتشر نمایید.'
+            'caption' => 'با هشتگ  #من_غدیری_ام" در صفحه اینستاگرام خود منتشر کنید تا در قرعه کشی 3 جایزه یک میلیون ریالی شرکت داده شوید'
         ]);
 
     }
 
     public function findActiveStage()
     {
-        $carbon = new Carbon();
-        return 1;
-        return $carbon->dayOfWeek;
+        return Setting::first()->active_stage;
+
     }
 }
