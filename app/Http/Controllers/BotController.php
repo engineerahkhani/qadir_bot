@@ -34,6 +34,8 @@ class BotController extends Controller
 //$update['message']['chat']['id']
     public function respond(Request $request)
     {
+        return 'ok';
+       
         Log::useDailyFiles(storage_path() . '/logs/webhook.log');
         if (isset($request['callback_query'])) {
             Log::info($request->all());
@@ -53,7 +55,10 @@ class BotController extends Controller
                 $text = 'file';
                 $chatId = $update['message']['chat']['id'];
             } else {
-                $chatId = $update->getMessage()->getChat()->getId();
+                $message =$update->getMessage();
+                if($message == null)
+                   $this->log('error');
+                $chatId = $message->getChat()->getId();
                 $text = $update->getMessage()->getText();
             }
             User::firstOrCreate(['chat_id' => $chatId]);
@@ -220,10 +225,10 @@ https://t.me/mosabegheghadir";
     public function uploadImg($chatId, $fileId)
     {
         $response = Telegram::getFile(['file_id' => $fileId]);
-        $img = Image::make('https://appakdl.com/qadir/1.png');
+        $img = Image::make('https://appakdl.com/qadir/2.jpg');
         $imgSource = Image::make('https://api.telegram.org/file/bot' . env('TELEGRAM_BOT_TOKEN') . '/' . $response['file_path']);
-        $imgSource->resize(500, 500);
-        $img->insert($imgSource, 'top-left', 150, 150);
+        $imgSource->resize(345, 530);
+        $img->insert($imgSource, 'top-left', 105, 310);
         $img->save('bar.png');
         $response = Telegram::sendPhoto([
             'chat_id' => $chatId,
@@ -236,6 +241,6 @@ https://t.me/mosabegheghadir";
     public function findActiveStage()
     {
         return Setting::first()->active_stage;
-
+      
     }
 }

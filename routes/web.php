@@ -1,20 +1,36 @@
 <?php
 
+use Telegram\Bot\Exceptions\TelegramResponseException;
+use Telegram\Bot\Laravel\Facades\Telegram;
+
 Route::get('/', 'BotController@index');
 Route::post('/message', 'HomeController@message');
 Route::post('/competition', 'HomeController@competition');
 Route::post('/setactive', 'HomeController@setactive');
-Route::get('/sendMe/{message}', function (\Illuminate\Http\Request $request) {
-    $stage = \App\Stage::find($request->message);
-    $messages = str_split($stage->passage, 4096);
-    $response = collect($messages)->map(function ($message) {
-        Telegram::sendMessage([
-            'chat_id' => 57647493,
-            'text' => mb_convert_encoding($message, 'UTF-8')
-        ]);
+Route::get('/sendMe', function () {
+    $users = \App\User::pluck('chat_id');
 
+    $txt = 'hi ahmad';
+    $me = [57647493];
+    collect($me)->map(function ($item) use ($txt){
+        try {
+
+            Telegram::sendMessage([
+                'chat_id' => $item,
+                'text' => mb_convert_encoding($txt, 'UTF-8')
+            ]);
+        } catch (TelegramResponseException $e) {
+
+            $errorData = $e->getResponseData();
+
+            if ($errorData['ok'] === false) {
+                $message =  $errorData['error_code'] . ' ' . $errorData['description'];
+
+                \Illuminate\Support\Facades\Log::info($message);
+            }
+        }
     });
-    return $response;
+    return $users;
 });
 Route::get('/test/{message}', function (\Illuminate\Http\Request $request) {
     $response = Telegram::sendMessage([

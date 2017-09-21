@@ -9,6 +9,7 @@ use App\Stage;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Telegram\Bot\Exceptions\TelegramResponseException;
 use Telegram\Bot\Laravel\Facades\Telegram;
 
 class HomeController extends Controller
@@ -39,13 +40,27 @@ class HomeController extends Controller
         Validator::make($request->all(), [
             'txt' => 'required|max:4000',
             'id' => 'required|exists:users,chat_id',
-
         ])->validate();
-        $response = Telegram::sendMessage([
-            'chat_id' => $request->id,
-            'text' => mb_convert_encoding($request->txt, 'UTF-8')
-        ]);
-        return back()->with(['message' => 'Sent', 'class' => 'alert-success']);
+
+        try {
+
+             Telegram::sendMessage([
+                'chat_id' => $request->id,
+                'text' => mb_convert_encoding($request->txt, 'UTF-8')
+            ]);
+            $message = 'Sent';
+            $class = 'alert-success';
+        } catch (TelegramResponseException $e) {
+
+            $errorData = $e->getResponseData();
+
+            if ($errorData['ok'] === false) {
+                $message =  $errorData['error_code'] . ' ' . $errorData['description'];
+                $class = 'alert-danger';
+            }
+        }
+
+        return back()->with(['message' => $message, 'class' => $class]);
     }
     public function setactive(Request $request)
     {
