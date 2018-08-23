@@ -42,7 +42,7 @@
                 {{csrf_field()}}
                 <legend>competition</legend>
                 <div class="form-group">
-                    <label for="">User Id</label>
+                    <label for="">Stage Id</label>
                     <select name="id" class="form-control">
                         <option value="1"> 1</option>
                         <option value="2"> 2</option>
