@@ -34,7 +34,7 @@ class BotController extends Controller
 //$update['message']['chat']['id']
     public function respond(Request $request)
     {
-        return 'ok';
+       // return 'ok';
        
         Log::useDailyFiles(storage_path() . '/logs/webhook.log');
         if (isset($request['callback_query'])) {
