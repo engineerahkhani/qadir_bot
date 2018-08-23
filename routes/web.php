@@ -42,7 +42,7 @@ return $response;
 Route::get('/me', 'BotController@me');
 Route::get('/set', function () {
     $res = Telegram::setWebhook([
-        'url' => 'https://appakdl.com/qadir/'.env('TELEGRAM_BOT_TOKEN').'/webhook'
+        'url' => 'https://3sootpeyk.com/'.env('TELEGRAM_BOT_TOKEN').'/webhook'
     ]);
     dd($res);
 

@@ -11,7 +11,7 @@
                 Active : <span>  {{\App\Setting::first()->active_stage}} </span>
             </h2>
 
-            <form action={{url('https://appakdl.com/qadir/setactive')}} method="post" role="form">
+            <form action={{url('https://3sootpeyk.com/setactive')}} method="post" role="form">
                 {{csrf_field()}}
                 <div class="col-xs-6">
                     <div class="form-group">
@@ -38,7 +38,7 @@
         @include('result')
 
         <div class="col-xs-6">
-            <form action={{url('https://appakdl.com/qadir/competition')}} method="post" role="form">
+            <form action={{url('https://3sootpeyk.com/competition')}} method="post" role="form">
                 {{csrf_field()}}
                 <legend>competition</legend>
                 <div class="form-group">
@@ -55,7 +55,7 @@
             </form>
         </div>
         <div class="col-xs-6">
-            <form action={{url('https://appakdl.com/qadir/message')}} method="post" role="form">
+            <form action={{url('https://3sootpeyk.com/message')}} method="post" role="form">
                 {{csrf_field()}}
                 <legend>Sent Message To User</legend>
                 <div class="form-group">

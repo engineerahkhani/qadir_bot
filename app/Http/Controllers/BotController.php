@@ -225,14 +225,14 @@ https://t.me/mosabegheghadir";
     public function uploadImg($chatId, $fileId)
     {
         $response = Telegram::getFile(['file_id' => $fileId]);
-        $img = Image::make('https://appakdl.com/qadir/2.jpg');
+        $img = Image::make('https://3sootpeyk.com/2.jpg');
         $imgSource = Image::make('https://api.telegram.org/file/bot' . env('TELEGRAM_BOT_TOKEN') . '/' . $response['file_path']);
         $imgSource->resize(345, 530);
         $img->insert($imgSource, 'top-left', 105, 310);
         $img->save('bar.png');
         $response = Telegram::sendPhoto([
             'chat_id' => $chatId,
-            'photo' => 'https://appakdl.com/qadir/bar.png',
+            'photo' => 'https://3sootpeyk.com/bar.png',
             'caption' => 'با هشتگ  #من_غدیری_ام" در صفحه اینستاگرام خود منتشر کنید تا در قرعه کشی 3 جایزه یک میلیون ریالی شرکت داده شوید'
         ]);
 
