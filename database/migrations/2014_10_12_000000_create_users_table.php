@@ -14,7 +14,7 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::defaultStringLength(191);
-        Schema::create('users', function (Blueprint $table) {
+       /* Schema::create('users', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 
             $table->increments('id');
@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('password')->nullable();
             $table->rememberToken()->nullable();
             $table->timestamps();
-        });
+        });*/
     }
 
     /**
@@ -34,6 +34,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+       // Schema::dropIfExists('users');
     }
 }
