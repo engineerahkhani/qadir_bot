@@ -11,13 +11,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
+        /* DB::table('users')->insert([
             'phone' => '09192952755',
             'name' => 'admin',
             'password'=>bcrypt(123456),
             'chat_id'=> '57647493'
         ]);
-
+ */
         DB::table('stages')->insert([
             'title' => 'مرحله اول',
             'passage' => 'بخش اول: حمد و ثنای الهی￼
